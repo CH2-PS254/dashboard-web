@@ -37,10 +37,10 @@ export function PoseCard(
         </div>
       </div>
       <CardHeader>
-        <CardTitle>{props.pose.name}</CardTitle>
+        <CardTitle className="truncate">{props.pose.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>{props.pose.description}</CardDescription>
+        <CardDescription className="line-clamp-2">{props.pose.description}</CardDescription>
       </CardContent>
       <CardFooter className="flex flex-row justify-between items-center">
         <time dateTime={props.pose.updated_at} className="text-sm">

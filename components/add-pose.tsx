@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 
 function SubmitButton() {
@@ -69,7 +70,7 @@ export function AddPose() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
-              <Input id="description" name="description" />
+              <Textarea id="description" name="description" />
             </div>
           </div>
           <DialogFooter>
