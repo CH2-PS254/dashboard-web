@@ -82,3 +82,26 @@ export async function deletePose(prevState: any, formData: FormData) {
     return { message: "Failed to delete pose" };
   }
 }
+
+export async function createPoseImage(prevState: any, formData: FormData) {
+  const schema = z.object({
+    poseId: z.string().min(1),
+    image: z.any(),
+  });
+  const data = schema.parse({
+    poseId: formData.get("poseId"),
+    image: formData.get("image"),
+  });
+
+  try {
+    await fetch(`http://localhost:8080/poses/${data.poseId}/image`, {
+      method: "POST",
+      body: formData,
+    });
+
+    revalidatePath("poses");
+    return { message: `Added image to pose ${data.poseId}` };
+  } catch (e) {
+    return { message: "Failed to add image to pose" };
+  }
+}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MoreVertical } from "lucide-react";
 
 import type { Pose } from "@/types/pose";
@@ -17,34 +18,31 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
+import { EditImage } from "@/components/edit-image";
 
 export function PoseCard(
   props: React.ComponentPropsWithoutRef<typeof Card> & { pose: Pose }
 ) {
   return (
     <Card {...props}>
-      {props.pose.image ? (
-        <div className="relative h-48">
-          <Image
-            src={props.pose.image}
-            alt={props.pose.name}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg"
-          />
+      <div className="relative h-48">
+        <Image
+          src={props.pose.image || "placeholder.svg"}
+          alt={props.pose.name}
+          fill
+          className="rounded-t-lg object-cover"
+        />
+        <div className="absolute top-0 right-0 p-2">
+          <EditImage poseId={props.pose.id} />
         </div>
-      ) : (
-        <div className="h-48 bg-muted rounded-t-lg" />
-      )}
-      <CardHeader className="flex flex-row justify-between items-center">
+      </div>
+      <CardHeader>
         <CardTitle>{props.pose.name}</CardTitle>
-        <PoseActions />
       </CardHeader>
       <CardContent>
         <CardDescription>{props.pose.description}</CardDescription>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-row justify-between items-center">
         <time dateTime={props.pose.updated_at} className="text-sm">
           {new Date(props.pose.updated_at).toLocaleString("id-ID", {
             day: "numeric",
@@ -55,6 +53,7 @@ export function PoseCard(
             timeZoneName: "short",
           })}
         </time>
+        <PoseActions />
       </CardFooter>
     </Card>
   );
