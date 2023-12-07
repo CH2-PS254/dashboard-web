@@ -17,20 +17,44 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 export function PoseCard(
   props: React.ComponentPropsWithoutRef<typeof Card> & { pose: Pose }
 ) {
   return (
     <Card {...props}>
-      <CardHeader>
+      {props.pose.image ? (
+        <div className="relative h-48">
+          <Image
+            src={props.pose.image}
+            alt={props.pose.name}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg"
+          />
+        </div>
+      ) : (
+        <div className="h-48 bg-muted rounded-t-lg" />
+      )}
+      <CardHeader className="flex flex-row justify-between items-center">
         <CardTitle>{props.pose.name}</CardTitle>
+        <PoseActions />
       </CardHeader>
       <CardContent>
         <CardDescription>{props.pose.description}</CardDescription>
       </CardContent>
       <CardFooter>
-        <PoseActions />
+        <time dateTime={props.pose.updated_at} className="text-sm">
+          {new Date(props.pose.updated_at).toLocaleString("id-ID", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            timeZoneName: "short",
+          })}
+        </time>
       </CardFooter>
     </Card>
   );
