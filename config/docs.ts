@@ -9,7 +9,7 @@ export const navConfig: NavConfig = {
   mainNav: [
     {
       title: "Dashboard",
-      href: "/dashboard",
+      href: "/",
     },
   ],
   sidebarNav: [],

@@ -20,8 +20,11 @@ export async function createPose(prevState: any, formData: FormData) {
   const pose = parse.data;
 
   try {
-    await fetch("http://localhost:8080/poses", {
+    await fetch(`${process.env.POSE_SERVICE_URL}/poses`, {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.POSE_SERVICE_TOKEN}`,
+      },
       body: JSON.stringify(pose),
     });
 
@@ -51,8 +54,11 @@ export async function updatePose(prevState: any, formData: FormData) {
   const pose = parse.data;
 
   try {
-    await fetch(`http://localhost:8080/poses/${pose.id}`, {
+    await fetch(`${process.env.POSE_SERVICE_URL}/poses/${pose.id}`, {
       method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${process.env.POSE_SERVICE_TOKEN}`,
+      },
       body: JSON.stringify(pose),
     });
 
@@ -72,8 +78,11 @@ export async function deletePose(prevState: any, formData: FormData) {
   });
 
   try {
-    await fetch(`http://localhost:8080/poses/${data.id}`, {
+    await fetch(`${process.env.POSE_SERVICE_URL}/poses/${data.id}`, {
       method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${process.env.POSE_SERVICE_TOKEN}`,
+      },
     });
 
     revalidatePath("poses");
@@ -94,8 +103,11 @@ export async function createPoseImage(prevState: any, formData: FormData) {
   });
 
   try {
-    await fetch(`http://localhost:8080/poses/${data.poseId}/image`, {
+    await fetch(`${process.env.POSE_SERVICE_URL}/poses/${data.poseId}/image`, {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.POSE_SERVICE_TOKEN}`,
+      },
       body: formData,
     });
 
